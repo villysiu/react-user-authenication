@@ -264,6 +264,9 @@ Devise.setup do |config|
   #
   # The "*/*" below is required to match Internet Explorer requests.
   # config.navigational_formats = ['*/*', :html]
+  
+  #prevent devise from using flash messages which are not present in Rails api mode.
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -308,4 +311,20 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  config.jwt do |jwt|
+    # jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
+    jwt.secret = Rails.application.credentials.devise_jwt_secret_key!
+    jwt.dispatch_requests = [
+      ['POST', %r{^/login$}],
+      # ['POST', %r{^/signup}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/logout$}]
+    ]
+    # jwt.expiration_time = 1.day.to_i
+    jwt.expiration_time = 5.minutes.to_i
+  end
+
+
 end
