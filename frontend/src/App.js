@@ -1,25 +1,15 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import User from './components/User'
+import PrivateText from './components/PrivateText'
 
-function App() {
+const App=()=>{
+  const [currUser, setCurrUser]=useState(null);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PrivateText currUser={currUser}/>
+      <User currUser={currUser} setCurrUser={setCurrUser} />
     </div>
   );
 }
-
 export default App;
