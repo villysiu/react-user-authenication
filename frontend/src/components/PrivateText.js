@@ -20,8 +20,7 @@ const PrivateText=({currUser})=>{
         }
     }
     useEffect(()=>{
-        if(currUser)
-            getText()
+        getText()
     },[currUser])
     return(
         <div>{message}</div>
