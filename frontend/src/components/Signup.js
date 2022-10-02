@@ -13,8 +13,9 @@ const Signup=({setCurrUser, setShow})=>{
                 },
                 body: JSON.stringify(userInfo)
             })
-            if(!response.ok) throw Error
             const data=await response.json()
+            if(!response.ok) throw data.error
+            
             localStorage.setItem('token', response.headers.get("Authorization"))
             setCurrUser(data)
         } catch (error){

@@ -8,7 +8,8 @@ const Logout =({setCurrUser})=>{
                     "authorization": localStorage.getItem("token")
                 },
             })
-            if(!response.ok) throw Error
+            const data=await response.json()
+            if(!response.ok) throw data.error
             localStorage.removeItem("token")
             setCurrUser(null)
         } catch (error) {

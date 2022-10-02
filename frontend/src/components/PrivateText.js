@@ -10,13 +10,13 @@ const PrivateText=({currUser})=>{
                     "authorization": localStorage.getItem("token")
                 }
             })
-            if(!response.ok) throw Error
             const data=await response.json()
+            if(!response.ok) throw data.error
             setMessage(data.message)
         }
         catch(error){
             console.log("error", error)
-            setMessage(null)
+            setMessage(error)
         }
     }
     useEffect(()=>{
